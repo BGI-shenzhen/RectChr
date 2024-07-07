@@ -1,0 +1,38 @@
+
+##################################### 全局参数 #######################################################
+
+SetParaFor = global
+File1  = ./S02.data
+                       ##  其中用NA表示不画，chr End End NA不画但End可以用来贝记为chr的长度
+ValueX = 2             ##  多少层，类同circos多少个圈，这不设默认是N,即根据File1的格式来的，可以自己设
+
+################################ Figure ############################################################
+
+#Chromosomes_order=chr1,chr2  #只画两条chr
+
+######    默认各层的配置参数 若各层没有配置的会，则会用这儿的参数 ######
+
+SetParaFor = LevelALL  ##  下面是处理初始化参数 SetParaFor 参数处理,若为 LevelALL，即先为所有层设置的默认值
+
+
+
+##################################### 各层的参数 #######################################################
+
+
+
+SetParaFor=Level1
+PType  = histAnimated
+ShowColumn = File1:4,5,6,7
+ValueSpacingRatio=0.1
+ChrWidth=40
+
+
+
+############  其它层  统一配置  ###
+
+SetParaFor=Level2
+PType  =  hist
+ShowColumn = File1:4,5
+ValueSpacingRatio=0.1
+ChrWidth=10
+
