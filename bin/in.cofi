@@ -1,0 +1,89 @@
+
+##################################### 全局参数 #######################################################
+
+SetParaFor = global
+
+File1  = ./InPut.file  ##  这个是必须输入参数，并且尽量放在最前,格式为[Chr Start End Value1 Value2 ... ValueN]
+                       ##  其中用NA表示不画，chr End End NA不画但End可以用来贝记为chr的长度
+#ValueX =              ##  多少层，类同circos多少个圈，这不设默认是N,即根据File1的格式来的，可以自己设
+#ChrSpacingRatio =0.2  ##  不同染色体chr之间的间隔比例(ChrWidth*ChrSpacingRatio)
+#Main = "main_Figure"  ##  the Fig Name  :MainRatioFontSize MainCor ShiftMainX  ShiftMainY 
+#ColorsConf = col.file ##  通过在主配置文件 input 自定义颜色和 Value的对应关系;( P1 = "#FE0808" )
+#ChrArrayDirection = horizontal  ##  horizontal/vertical  chr是按纵排列还是横排列
+##其它当很少用到的参数 BGChrEndCurve=1/ 等等
+################################ Figure ############################################################
+
+
+
+
+
+
+##############################     画布 和 图片 参数配置 #################################
+#ZoomRegion           ## Zoom the specific Region,format (ZoomRegion=chr2:1000:5000)
+#Chromosomes_order =   ## chr的顺序和只列某些chr出来画，若没有配置，程序会按chr名自动排序 chr1,chr2,chr3
+#body=1200   ##   默认是1200，主画布大小设置  另外：up/down/left/right) = (55,25,100,120); #CanvasHeightRitao=1.0 CanvasWidthRitao=1.0
+#RotatePng   = 0  ##  对Figure进行旋转的角度
+#RotateChrName  = 0  ##  旋转chr名字 text 
+#ChrSpacingRatio=0.2    ##  不同染色体chr之间的间隔比例(Sum(ChrWidthX*X)*ChrSpacingRatio)
+
+
+
+
+######    默认各层的配置参数 若各层没有配置的会，则会用这儿的参数 ######
+
+SetParaFor = LevelALL  ##  下面是处理初始化参数 SetParaFor 参数处理,若为 LevelALL，即先为所有层设置的默认值
+#File2    =             ##  可以输入别的文件
+PType  = heatmap       ##  线，散点，直方图，热图,文本和共线性link, line, scatter/point, histogram，link,LinkS heatmap(highlights)和text,PairWiseLink,heatmapAnimated/histAnimated,LinkS,shape/ridgeline/PairWiseLinkV2
+#ShowColumn =          ##  若SetParaFor为LevelALL时，N层的ShowColumn默认为File1的第ValueN所的Column(N+3)
+                       ##  参数格式可以设为 ShowColumn=File1:4 File2:4,5
+                       ##  File1:4,5 表示file1的第四和第五列用heatmap表示
+#crBegin="#006400"      ##  此层(ValueX)最低值Value 的配色
+#crMid="#FFFF00"        ##  此层(ValueX)中间值Value 的配色
+#crEnd="#FF0000"        ##  此层(ValueX)最大值Value 的配色
+#crBG="#B8B8B8"         ##  此层(ValueX)背景色  的配色
+#TopVHigh=0.95          ##  此层Top of ValueX 用最高点颜色[0.95],其它再等分  默认有可能是1.0/0.95
+#TopVLow=0              ##  此层Top of ValueX 用最低点颜色[0],其它再等分
+##YMax=                 ##  设置此层(ValueX)的最大值,默认自动   ## Cutoff   CrCutoff
+##YMin=                 ##  设置此层(ValueX)的最小值,默认自动  ## LimitYMax  LimitYMin
+#Gradien=8             ##  此层(ValueX)多少等分颜色
+#ChrWidth=20            ##  此层(ValueX)在画布的宽度
+#BGWidthRatio =1        ##  此层(ValueX)的背景(backgroup)的宽度默认和ChrWidth一样(0-1])
+#LogP=0                 ##  此层(ValueX)不作 0-log10(Value) 处理
+#ValueSpacingRatio=0    ##  同一染色体中此层(ValueX)之间的间隔比例(ChrWidth*ValueSpacingRatio)
+#SizeGradienRatio=  ##设置渐变条的大小
+#ShowYaxis=0            ##  是否显示所有层的Y axis的起终点值,默认值此:0 不显示
+#NoShowGradien=0        ##  若要不显示渐变条  可设为1
+########   更多配置的参数  可以自己设，没有的话会自动设置  #######
+
+##ShiftGradienX=0 ## 渐变条左右移动   ##ShiftGradienY=0  ## 渐变条上下移动
+##ShiftChrNameX=0/ShiftChrNameY=0   ## chrName移动  ChrNameRatio=1.0
+##LimitYMax/LimitYMin 
+
+
+
+
+##################################### 这些只可在各层的设置的参数 #######################################################
+###   具体某层的具体配置   把 DealLevePara  设为具体正数(<=ValueX),然后可以具体修改此层要改变的部分
+#ColorBrewer=           ## 这个一设,crBegin,crMid,crEnd 即不起作用。数值 : GnYlRd; Text为：Paired
+#						##  "BrBG","PiYG","PRGn","Paired","Pastel1","Pastel2","Set1",","BuPu","GnBu","Greens","Greys"...
+#ReverseColor = 0       ##  对配色渐变条进行反向
+                        ## see more https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html
+##Rotate/fill/Cutline/strokewidth/stroke//font-size/font-family/fill-opacity/strokeWidthBG/crStrokeBG/NoShowBackGroup   ### 等等
+#text-font-size   TextFontRatio=1.0
+
+
+
+
+
+
+
+##################################### 各层的参数 #######################################################
+#SetParaFor=Level2    ##  下面开始处理第 2 层 参数处理
+#File2    =            ##  可以输入别的文件 file1
+#PType  = hist    ##  散点
+#ShowColumn = File2:5 ##  把file1的第五列用散点图形式画出来)
+##LevelName = "Name"  ##  the Level Name  :NameRatioFontSize NameCol ShiftNameX  ShiftNameY  NameRotate
+
+#SetParaFor=Level3
+#PType  = lines
+#ShowColumn = File1:5,6
