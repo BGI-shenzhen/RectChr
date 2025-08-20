@@ -1,0 +1,68 @@
+
+##################################### 全局参数 #######################################################
+
+SetParaFor = global
+
+File1  = ./Gwas.data.pvlue.gz  ##  这个是必须输入参数，并且尽量放在最前,格式为[Chr Start End Value1 Value2 ... ValueN]
+File2  = ./site.text.info    
+File3  = A.pvalue
+File4  = B.pvalue
+
+ValueX = 4            ##  多少层，类同circos多少个圈，这不设默认是N,即根据File1的格式来的，可以自己设
+ChrSpacingRatio =0.2  ##  不同染色体chr之间的间隔比例(ChrWidth*ChrSpacingRatio)
+Main = "GWAS_Figure"  ##  the Figtur Name   #font-size  strokewidth=1;  fill="green"
+ChrArrayDirection = horizontal  ##  horizontal/vertical  chr是按纵排列还是横排列
+CanvasHeightRitao = 0.75  ##  画布最下面若有空白 截取上面的0.75
+
+
+
+######    默认各层的配置参数 若各层没有配置的会，则会用这儿的参数 ######
+
+SetParaFor = LevelALL  ##  下面是处理初始化参数 SetParaFor 参数处理,若为 LevelALL，即先为所有层设置的默认值
+ShiftGradienY=-85  ## 渐变条上移动
+ShiftGradienX=-20 ## 渐变条左移动
+ShiftChrNameX=60   # chr名右移
+ShiftChrNameY=100   # chr名下移
+
+
+##################################### 各层的参数 #######################################################
+###   具体某层的具体配置   把 DealLevePara  设为具体正数(<=ValueX),然后可以具体修改此层要改变的部分
+
+
+SetParaFor=Level1    ##  下面开始处理第 1 层 参数处理
+PType  = text
+ShowColumn = File2:5 ##  默认为file0 的4列,改为5
+crBG="#FFFFFF"   # 白色，即没有背景
+ChrWidth=40  #  放text的名字 宽度长点
+Rotate=-90   # 旋转 90度  文字
+TextFontRatio=1.2  # 文字 放大为原来的1.2倍
+NoShowGradien=1  # 不显示渐变条
+
+
+SetParaFor=Level2
+ShowColumn = File2:5  ##  把file0的第四列用散点图形式画出来)
+ChrWidth=30       ##这一层宽度调高点
+PType  = PairWiseLink
+StyleUpDown = UpDown
+NoShowBackGroup=1 # 同 crBG="#FFFFFF"  一样 即没有背景
+SizeGradienRatio=0.8  # 渐变条 缩小为原来的0.8
+
+
+
+SetParaFor=Level3    ##  下面开始处理第 3 层 参数处理
+PType  = point    ##  散点
+ShowColumn = File3:4 File4:4  ##  把file0的第四列用散点图形式画出来)
+ChrWidth=100       ##这一层宽度调高点
+LogP=1   #  0-log()   对数值进行取log
+crBG="#FFFFFF"  # 背影为白色，实没有画
+TopVHigh=1.1   #  只要大于1时就会取最高点  
+ShowYaxis=1    #  显示左边数值
+ValueSpacingRatio=0.04  #和一层空一点
+CirsizeRatio=1.2  ## 散点的大小按默认放大缩小
+Cutline=5
+NoShowGradien=1
+
+SetParaFor=Level4   #  这一层啥都不画 仅用背景条
+ShowColumn = File1:4
+ChrWidth=10
+PType  = EEE	 #啥都不画  空

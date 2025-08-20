@@ -1,0 +1,74 @@
+
+##################################### 全局参数 #######################################################
+
+SetParaFor = global
+
+File1  = ./01.data.rice
+File2  = ./02.data.soy
+File3  = ./03.data.maize
+File4  = ./04.data.ara
+ValueX =5
+
+# ScaleNum=-1   -1的话取消 坐标轴
+
+######    默认各层的配置参数 若各层没有配置的会，则会用这儿的参数 ######
+
+SetParaFor = LevelALL  ##  下面是处理初始化参数 SetParaFor 参数处理,若为 LevelALL，即先为所有层设置的默认值
+PType  = shape       ##  线，散点，直方图，热图,文本和共线性link, line, scatter/point, histogram，link,LinkS heatmap(highlights)和text,PairWiseLink,heatmapAnimated/histAnimated,LinkS,shape
+
+ChrNameRatio=0.0001  #取消chr名
+
+
+#  如links  或者 PairWiseLink   可以用来更丰富位置
+
+
+
+
+##################################### 各层的参数 #######################################################
+SetParaFor=Level1    ##  下面开始处理第 2 层 参数处理
+PType  = text
+ShowColumn = File1:4
+NoShowBackGroup=1
+TextFontRatio=2.5  #放大2.5倍字体
+ChrWidth=80  #  放text的名字 宽度长点
+Rotate=-90   # 旋转 90度  文字
+
+SetParaFor=Level2
+ShapeType=13,12   #  + - 指定对应两种图形
+ShapesizeRatio=10   # #图型放大  若放太大和下层有overlap的话，可以把各层的层距放大点 ValueSpacingRatio=0
+ShowColumn = File1:5
+BGWidthRatio=0.1
+LevelName ="Rice"
+NameRatioFontSize=1.5         # LevelName放大字体
+
+SetParaFor=Level3
+ShapeType=13,12
+ShapesizeRatio=10
+ShowColumn = File2:5
+BGWidthRatio=0.1
+LevelName ="Soy"
+NoShowGradien=1          # 取消渐变条
+NameRatioFontSize=1.5         # LevelName放大字体
+
+
+SetParaFor=Level4
+ShapeType=13,12
+ShapesizeRatio=10
+ShowColumn = File3:5
+BGWidthRatio=0.1
+LevelName ="maize"
+NameRatioFontSize=1.5         # LevelName放大字体
+NoShowGradien=1
+
+SetParaFor=Level5
+ShapeType=13,12
+ShapesizeRatio=10
+ShowColumn = File4:5
+BGWidthRatio=0.1
+LevelName ="Arabidopsis"
+NoShowGradien=1
+NameRatioFontSize=1.5         # LevelName放大字体
+
+
+
+
