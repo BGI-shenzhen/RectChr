@@ -1,0 +1,158 @@
+#!/usr/bin/perl -w
+use strict;
+use Getopt::Long;
+use FindBin qw($Bin $RealBin);
+use Data::Dumper;
+
+######################swimming in the sky and flying in the sea ###########################
+
+# Check current date and warn if version is outdated
+my $today = `date +%Y%m%d`;
+chomp $today;
+if ($today > 20260620) {
+	print "\tA newer version is available. This version is no longer maintained but can still be used.\n";
+	print "\tDownload the latest version at https://github.com/hewm2008/RectChr\n";
+}
+
+# Test if SVG module is available
+my $SVGTest=`  perl -MSVG -e " print\\\"SVG\\\" "  2>  /dev/null  `;
+if (!((defined $SVGTest) && ($SVGTest eq "SVG"))) {
+	print "Warning: SVG module in Perl is missing. Trying to load built-in [SVG.pm]...\n";
+
+	# Try loading internal SVG module
+    $SVGTest=` perl -I$Bin/svg_kit -I$RealBin/svg_kit -MSVG -e "print\\\"SVG\\\""   2>  /dev/null  `;
+
+	if (!((defined $SVGTest) && ($SVGTest eq "SVG"))) {
+		print "Warning: Cannot load [SVG.pm] modules internally.\n";
+		print "Error:\tPlease install SVG module from https://metacpan.org/release/SVG\n";
+		exit;
+	} else {
+		# Use local SVG.pm if found
+		use lib "$RealBin/svg_kit";
+		use lib "$Bin/svg_kit";
+		use SVG;
+		print "Loading SVG module done\n";
+	}
+} else {
+	# Use system SVG.pm
+	use SVG;
+}
+
+use Switch;  
+
+# Subroutine usage2: Print detailed help message
+sub usage2 {
+	print STDERR <<USAGE;
+
+	Version:1.43         hewm2008\@gmail.com
+
+	Usage: $RealBin/RectChr  -InConf  in.cofi -OutPut OUT
+
+	Options
+
+	-InConf       <s> : Input Configuration File
+	-OutPut       <s> : Output SVG file result
+
+	-help             : Show more help with *Manual.pdf
+
+USAGE
+}
+
+# Subroutine usage: Print basic help message
+sub usage {
+	print STDERR <<USAGE;
+
+	Version:1.43         hewm2008\@gmail.com
+
+	Options
+
+	-InConf       <s> : Input Configuration File
+	-OutPut       <s> : Output SVG file result
+
+	-help             : Show more help with more parameters
+
+USAGE
+}
+
+my $InConfi;
+my $OutPut;
+my $help;
+
+GetOptions(
+	"InConfi:s" => \$InConfi,
+	"InConf:s" => \$InConfi,
+	"OutPut:s"  => \$OutPut,
+	"help"      => \$help,
+);
+
+# Handle user input: display help or validate required parameters
+if (defined($help)) {
+	usage2;
+	exit(1);
+} elsif ((!defined($InConfi)) && (!defined($OutPut))) {
+	usage;
+	exit(1);
+}
+
+if ((!defined($InConfi)) || (!defined($OutPut))) {
+	usage;
+	exit(1);
+}
+
+# Load additional libraries from local directories
+use lib "$Bin/lib/";
+use lib "$RealBin/lib/";
+
+# Import utility functions
+use LocalUtils qw(CheckValueNow svg2PNGfunction);
+
+# Import configuration loader and plotting modules
+use ConfigDataLoader;
+use GenomicLinkPlot qw(PTypeLinkPlot);
+use RectChrPlot qw(RectChrPlot);
+
+# Load configuration and data from input config file
+my ($HashConfi_ref, $ValueToCustomColor_ref, $hashChr_ref, $hashChr2File_ref, $ShowColumn_ref,
+	$FileData_ref, $FileRow_ref, $FileColumn_ref, $ChrArry_ref, $ParaFlag_ref, $widthForPerChr,
+	$PTypeLink, $ChrMax, $total_chr_length, $RegionStart, $bin, $axis_label,
+	$ChrCount, $color_gradient_scale, $chr_spacing, $Bodyheight, $fontsize, $height, $width,
+	$NumberLevel, $NumParaFlag) = ConfigDataLoader::Deal_Para($InConfi, $Bin, $RealBin);
+
+
+######################swimming in the sky and flying in the sea ###########################
+
+
+# Decide which type of plot to generate
+if ($PTypeLink == 1) {
+	# Warning: Link-type plotting will be removed in v1.40
+	
+	print "\n\t[Warning] The 'PType for Link' parameter will be removed in RectChr version 1.40.\n";
+    print "\tIf you still need this feature, please either:\n";
+    print "\t  1) Downgrade to RectChr version 1.39, or\n";
+    print "\t  2) Use the published tool NGenomeSyn: https://github.com/hewm2008/NGenomeSyn\n\n";
+
+	# Generate link-based plot
+	my $svg = GenomicLinkPlot::PTypeLinkPlot($HashConfi_ref, $ValueToCustomColor_ref, $hashChr_ref,
+		$hashChr2File_ref, $ShowColumn_ref, $FileData_ref, $FileRow_ref, $FileColumn_ref,
+		$ChrArry_ref, $ParaFlag_ref, $widthForPerChr, $ChrMax, $total_chr_length,
+		$RegionStart, $bin, $axis_label, $ChrCount, $color_gradient_scale, $chr_spacing,
+		$Bodyheight, $fontsize, $height, $width, $NumberLevel, $NumParaFlag);
+
+	# Save SVG and optionally convert to PNG
+	LocalUtils::svg2PNGfunction($HashConfi_ref, $svg, $OutPut);
+} else {
+	# Default: draw standard rectangular chromosome plot
+	my $svg = RectChrPlot::RectChrPlot($HashConfi_ref, $ValueToCustomColor_ref, $hashChr_ref,
+		$ShowColumn_ref, $FileData_ref, $FileRow_ref, $ChrArry_ref, $widthForPerChr,
+		$ChrMax, $total_chr_length, $RegionStart, $bin, $axis_label,
+		$ChrCount, $color_gradient_scale, $chr_spacing, $Bodyheight, $fontsize,
+		$height, $width, $NumberLevel);
+
+	# Save SVG and optionally convert to PNG
+	LocalUtils::svg2PNGfunction($HashConfi_ref, $svg, $OutPut);
+}
+
+exit(0);  # End of program
+
+######################swimming in the sky and flying in the sea ###########################
+
