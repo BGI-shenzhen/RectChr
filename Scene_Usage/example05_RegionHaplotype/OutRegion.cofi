@@ -1,0 +1,29 @@
+
+SetParaFor= global
+colormap_conf= Region.col
+
+
+SetParaFor = global
+File1 = OutRegion.genotype
+show_columns= File1:4
+chr_spacing_ratio=0      # Chr之间取消空隙
+colormap_conf = OutRegion.col
+title="Region chr2:22759380:22775500 genotype"
+chr_order=HS34,HS39,HS37,HS43,HS38,HS40,HS36,HS41,HS31,HS32,HS44,HS33,HS35,HS42,HS06,JN05,JN02,JN01,JN09,JN12,JN10,JN21,JN29,JN25,JN11,JN18,JN17,JN16,JN15,JN19,JY01,JY15,JY04,JY25,JY07,JY19,JY28,JY20,JY03,JY16,JY14,JY05,JY06,JY29,JY18,JY21,TG02,TG10,TG13,TG15,TG01,TG03,TG14,TG08,TG05,TG12,TG04,TG06,TG07,TG09,TG11,WN02,WN08,WN03,WN04,WN09,WN13,WN01,WN14,WN10,WN07,WN12,WN05,WN11,WN06,WN15,LZ01,LZ16,LZ21,LZ19,LZ20,LZ02,LZ15,LZ08,LZ04,LZ10,LZ07,LZ18,LZ06,LZ05,LZ03,LZ09,LZ17,RY01,RY06,RY10,RY09,RY05,RY07,RY08,RY02,RY03,RY04,GD05,GD04,GD03,GD06,GD10,GD11,GD13,GD09,GD08,GD12,GD07,GD02,GD01,GD18,GD16,GD17,JGS31,JGS36,JGS32,JGS37,JGS41,JGS44,JGS43,JGS42,JGS33,JGS38,JGS45,JGS39,JGS34,JGS35,JGS40,LS03,LS13,LS11,LS15,LS06,LS08,LS05,LS01,LS19,LS27,LS20,LS21,LS22,LS25,LS18,LS29,CJ17,CJ09,CJ02,CJ08,CJ10,CJ16,CJ13,CJ05,CJ06,CJ15,CJ11,CJ01,CJ07,CJ04,CJ12,CJ14,CJ03
+#chr_order = A8, A9...A20,SpeSample1.B1,....B20,SpeSample2,...  ## 这儿定义顺序，样品过多 我这只例示
+## ## 这儿定义顺序，样品过多 我这只例示   亚群过滤 插入一个or多个空白的样品
+
+
+SetParaFor= trackALL
+chr_label_size_ratio=0.5
+
+SetParaFor= track1
+plot_type= heatmap
+track_height=7.2           #  样品过多，400个样品    2.5*400 即画布深度为1000  ，可以用body=1200 /样品数定义chr的宽度
+background_color="#FFFFFF"
+bg_stroke_width=0
+#stroke-width=12.2
+#colormap_legend_size=1
+colormap_legend_shift_x=3
+#colormap_legend_shift_y=-43.2
+
