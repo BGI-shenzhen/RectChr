@@ -1,4 +1,4 @@
-# RectChr
+<img width="1136" height="761" alt="image" src="https://github.com/user-attachments/assets/d6aca0a8-b195-4dfb-b783-603fdc47d225" /># RectChr
 Multi-level visualization of genomic statistical variables on rectangular chromosomes
 
 ###  1 Introduction
@@ -225,7 +225,7 @@ RectChr have been cited in more than <b> 60 times </b> by [searching against goo
 
 ###  7 Discussing
 ------------
-- [:email:](https://github.com/hewm2008/RectChr) hewm2008@gmail.com/hewm2008@qq.com
+- [:email:](https://github.com/hewm2008/RectChr) hewm2008@gmail.com/hewm2008@qq.com/xulian@ntu.edu.cn 
 - join the<b><i> QQ Group : 125293663</b></i>
 
 ######################swimming in the sky and flying in the sea #############################
